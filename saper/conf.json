@@ -1,0 +1,18 @@
+{
+    "CELL_SIZE": 20,
+    "FIELD_SIZE": {
+        "SMALL": [
+            10,
+            10
+        ],
+        "MEDIUM": [
+            50,
+            50
+        ],
+        "LARGE": [
+            500,
+            1000
+        ]
+    },
+    "MINES PERCENTAGE": 12
+}
