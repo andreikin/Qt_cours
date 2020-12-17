@@ -1,23 +1,37 @@
-import yaml
+import json
+from random import randint
 
-data = {}
-data["fild size"] = [
-            ["small", 10, 10],
-            ["medium", 30, 30],
-            ["large", 100, 200],
-            ["super large", 500, 1000]
-            ]
+# load configurations
+with open('conf.json', 'r') as file:
+    conf = json.load(file)
 
-# data = [data, 5, 8, 6, 3]
+class Game:
+    # mine matrix
+    # opening of voids
+    def __init__(self, mode ="SMALL"):
+        self.mode = mode
+        self.width = conf["FIELD_SIZE"][self.mode][0]
+        self.height = conf["FIELD_SIZE"][self.mode][1]
+        self.matrix = [[0 for i in range(self.width+2)] for j in range(self.height+2)]
+        self.number_of_mines = int(self.width*self.height/100*conf["MINES_PERCENTAGE"])
+
+    def __add_mines(self):
+        pass
+
+    def __str__(self):
+        for i in self.matrix:
+            print(* i)
+        print(self.number_of_mines)
 
 
-# stream = file('configuration.yaml', 'w')
-# yaml.dump(data, stream)
+class Cell:
+    # define cell functions
+    pass
 
+class GameUi:
+    # draw ui
+    pass
 
+g = Game()
 
-with open('configuration.yaml', 'w') as file:
-    yaml.dump(data, file)
-#     raw_data = file.read()
-
-print (yaml.dump({'name': 'Silenthand Olleander', 'race': 'Human', 'traits': ['ONE_HAND', 'ONE_EYE']}))
+print(g)
