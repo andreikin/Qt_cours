@@ -3,16 +3,16 @@
     "FIELD_SIZE": {
         "SMALL": [
             10,
-            10
+            5
         ],
         "MEDIUM": [
-            50,
+            100,
             50
         ],
         "LARGE": [
-            500,
-            1000
+            1000,
+            500
         ]
     },
-    "MINES PERCENTAGE": 12
+    "MINES_PERCENTAGE": 20
 }
