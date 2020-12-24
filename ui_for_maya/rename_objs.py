@@ -172,3 +172,21 @@ if __name__ == '__main__':
     win = MyWindow()
     win.show()
     # app.exec_()
+
+"""
+	shows a dialog window
+"""
+
+# if cmds.workspaceControl("SelectionSetsWorkspaceControl", exists=1):
+#     cmds.deleteUI("SelectionSetsWorkspaceControl", control=1)
+#     cmds.workspaceControlState("SelectionSetsWorkspaceControl", remove=1)
+#
+# window = SelectionSets()
+# window.show(dockable=1, area="right", allowedArea="right", floating=1)
+#
+# cmds.workspaceControl("SelectionSetsWorkspaceControl",
+#                     label="Selection Sets",
+#                     edit=1,
+#                     tabToControl=["AttributeEditor", -1],
+#                     widthProperty="fixed",
+#                     initialWidth=400)
