@@ -115,8 +115,23 @@ class MyWindow(QWidget):
             cmds.select(clear=True)
 
     def select_nonunic(self):
-        print
-        'ok'
+        def isNameUnique(name):
+            shortName = name.split("|")
+            try:
+                longNames = cmds.ls(shortName[-1], l=True)
+            except:
+                longNames = cmds.ls(("*" + shortName[-1]), l=True)
+
+            if len(longNames) > 1:
+                return 0
+            else:
+                return 1
+
+        rez = []
+        for obj in cmds.ls():
+            if not isNameUnique(obj):
+                rez.append(obj)
+        cmds.select(rez)
 
     def __get_pfx_from_ui(self):
         prefix = self.comboBox_pfx.currentText()
@@ -154,39 +169,32 @@ class MyWindow(QWidget):
                 self.pvFindChildren(child, node)
 
 
-def isNameUnique(name):
-    shortName = name.split("|")
+def pvRename():
     try:
-        longNames = cmds.ls(shortName[-1], l=True)
-    except:
-        longNames = cmds.ls(("*" + shortName[-1]), l=True)
-
-    if len(longNames) > 1:
-        return 0
-    else:
-        return 1
-
-
-if __name__ == '__main__':
-    # app = QApplication([])
+        win.deleteLater()
+    except NameError as e:
+        pass
     win = MyWindow()
     win.show()
-    # app.exec_()
 
-"""
-	shows a dialog window
-"""
 
-# if cmds.workspaceControl("SelectionSetsWorkspaceControl", exists=1):
-#     cmds.deleteUI("SelectionSetsWorkspaceControl", control=1)
-#     cmds.workspaceControlState("SelectionSetsWorkspaceControl", remove=1)
-#
-# window = SelectionSets()
-# window.show(dockable=1, area="right", allowedArea="right", floating=1)
-#
-# cmds.workspaceControl("SelectionSetsWorkspaceControl",
-#                     label="Selection Sets",
-#                     edit=1,
-#                     tabToControl=["AttributeEditor", -1],
-#                     widthProperty="fixed",
-#                     initialWidth=400)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
