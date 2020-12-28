@@ -40,6 +40,6 @@ class Field:
 
 
 
-g = Field(20, 10, 60)
-g.print_cell()
+# g = Field(20, 10, 60)
+# g.print_cell()
 
