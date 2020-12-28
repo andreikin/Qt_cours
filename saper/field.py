@@ -5,7 +5,7 @@ from random import randint
 with open('conf.json', 'r') as file:
     conf = json.load(file)
 
-class Game:
+class Fild:
     # mine matrix
     # opening of voids
     def __init__(self, mode ="SMALL"):
