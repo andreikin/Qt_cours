@@ -7,26 +7,31 @@ from PyQt5.QtWidgets import *
 # help (PySide2)
 
 class Cell(QPushButton):
-    def __init__(self):
+    def __init__(self, status):
         super().__init__()
-        self.setFixedSize(20, 20)
+        self.status = status # mine * or mines number
+        self.__init_ui()
         self.flag = False
-        self.setIcon(QIcon(r'images\cell.jpg'))
-        self.setIconSize(QSize(20, 20))
-        self.show()
+
+    def __init_ui(self):
+        self.setFixedSize(20, 20)
+        self.setStyleSheet("QPushButton{border-image: url(images/cell.jpg)}")
+
 
     def mousePressEvent(self, event):
         button = event.button()
         if button == Qt.RightButton:
             if not self.flag:
                 self.flag = True
-                self.setIcon(QIcon(r'images\flag.jpg'))
+                self.setStyleSheet("QPushButton{border-image: url(images/flag.jpg)}")
             else:
                 self.flag = False
-                self.setIcon(QIcon(r'images\cell.jpg'))
+                self.setStyleSheet("QPushButton{border-image: url(images/cell.jpg)}")
+                self.setText(self.status)
 
         elif button == Qt.LeftButton:
-            print("Left button click!")
+            print(self.status)
+            self.setStyleSheet("QPushButton{border-image: url(images/0cell.jpg)}")
         return QPushButton.mousePressEvent(self, event)
 
 
@@ -34,10 +39,9 @@ class MyWindow(QWidget):
     def __init__(self):
         super(MyWindow, self).__init__()
         layout = QVBoxLayout(self)
-        for _ in range(7):
-            self.layout().addWidget(Cell())
-
-
+        for i in range(7):
+            bt = Cell(i)
+            self.layout().addWidget(bt)
 
 
 if __name__ == '__main__':
