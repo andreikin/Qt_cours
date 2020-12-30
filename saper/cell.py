@@ -11,7 +11,7 @@ class Cell(QPushButton):
         super().__init__()
         self.setFixedSize(20, 20)
         self.flag = False
-        self.setIcon(QIcon('cell.jpg'))
+        self.setIcon(QIcon(r'images\cell.jpg'))
         self.setIconSize(QSize(20, 20))
         self.show()
 
@@ -20,10 +20,10 @@ class Cell(QPushButton):
         if button == Qt.RightButton:
             if not self.flag:
                 self.flag = True
-                self.setIcon(QIcon('flag.jpg'))
+                self.setIcon(QIcon(r'images\flag.jpg'))
             else:
                 self.flag = False
-                self.setIcon(QIcon('cell.jpg'))
+                self.setIcon(QIcon(r'images\cell.jpg'))
 
         elif button == Qt.LeftButton:
             print("Left button click!")
@@ -33,26 +33,11 @@ class Cell(QPushButton):
 class MyWindow(QWidget):
     def __init__(self):
         super(MyWindow, self).__init__()
-        self.setWindowFlags(Qt.WindowStaysOnTopHint)
-        self.setMinimumWidth(300)
-
         layout = QVBoxLayout(self)
-        label = QLabel('Text')
-        layout.addWidget(label)
+        for _ in range(7):
+            self.layout().addWidget(Cell())
 
-        btn1 = Cell()
-        btn2 = Cell()
-        btn3 = Cell()
-        btn4 = Cell()
-        btn5 = Cell()
 
-        #btn1.setStyleSheet("background-image: sell.jpg ;")
-
-        self.layout().addWidget(btn1)
-        self.layout().addWidget(btn2)
-        self.layout().addWidget(btn3)
-        self.layout().addWidget(btn4)
-        self.layout().addWidget(btn5)
 
 
 if __name__ == '__main__':
