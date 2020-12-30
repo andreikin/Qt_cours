@@ -27,11 +27,15 @@ class Cell(QPushButton):
             else:
                 self.flag = False
                 self.setStyleSheet("QPushButton{border-image: url(images/cell.jpg)}")
-                self.setText(self.status)
+
 
         elif button == Qt.LeftButton:
             print(self.status)
             self.setStyleSheet("QPushButton{border-image: url(images/0cell.jpg)}")
+            self.setText(self.status)
+
+            #but.setIconSize(QSize(20, 20))
+            #self.show()
         return QPushButton.mousePressEvent(self, event)
 
 
