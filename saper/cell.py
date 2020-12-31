@@ -12,6 +12,7 @@ class Cell(QPushButton):
         self.status = status # mine * or mines number
         self.__init_ui()
         self.flag = False
+        self.opened = False
 
     def __init_ui(self):
         self.setFixedSize(20, 20)
@@ -21,21 +22,19 @@ class Cell(QPushButton):
     def mousePressEvent(self, event):
         button = event.button()
         if button == Qt.RightButton:
-            if not self.flag:
-                self.flag = True
-                self.setStyleSheet("QPushButton{border-image: url(images/flag.jpg)}")
-            else:
-                self.flag = False
-                self.setStyleSheet("QPushButton{border-image: url(images/cell.jpg)}")
-
-
+            if not self.opened:
+                if not self.flag:
+                    self.flag = True
+                    self.setStyleSheet("QPushButton{border-image: url(images/flag.jpg)}")
+                else:
+                    self.flag = False
+                    self.setStyleSheet("QPushButton{border-image: url(images/cell.jpg)}")
         elif button == Qt.LeftButton:
             print(self.status)
             self.setStyleSheet("QPushButton{border-image: url(images/0cell.jpg)}")
-            self.setText(self.status)
+            self.setText(str(self.status))
+            self.opened = True
 
-            #but.setIconSize(QSize(20, 20))
-            #self.show()
         return QPushButton.mousePressEvent(self, event)
 
 
