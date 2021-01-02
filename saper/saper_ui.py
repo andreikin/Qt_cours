@@ -1,12 +1,9 @@
-
-
 from PyQt5.QtCore import *
 from PyQt5.QtGui import *
 from PyQt5.QtWidgets import *
-
-# import PyQt5
-# help (PySide2)
-
+from field import Field
+from cell import Cell
+import functools
 
 class SaperUI(QMainWindow):
     def __init__(self):
@@ -21,6 +18,13 @@ class SaperUI(QMainWindow):
         self.__menu_bar()
         self.__header()
 
+        self.cells_list = []
+        self.gridLayout_field = QGridLayout()
+        self.gridLayout_field.setSpacing(0)
+        self.verticalLayout.addLayout(self.gridLayout_field)
+
+        self.generate_field()
+
     def __menu_bar(self):
         # menu bar
         self.menuBar = QMenuBar()
@@ -30,13 +34,13 @@ class SaperUI(QMainWindow):
         self.menuBar.addMenu(self.menu)
         # action
         self.act1 = QAction("Small", self)
-        self.act1.triggered.connect(self.actionSmile)
+        self.act1.triggered.connect(functools.partial(self.restart_resize_command, "Small") )
         self.menu.addAction(self.act1)
         self.act2 = QAction("Middle", self)
-        self.act2.triggered.connect(self.actionMiddle)
+        self.act2.triggered.connect(functools.partial(self.restart_resize_command, "Middle") )
         self.menu.addAction(self.act2)
         self.act3 = QAction("Large", self)
-        self.act3.triggered.connect(self.actionLarge)
+        self.act3.triggered.connect(functools.partial(self.restart_resize_command, "Large") )
         self.menu.addAction(self.act3)
         # menu "Help"
         self.menu_help = QMenu("Help")
@@ -64,13 +68,13 @@ class SaperUI(QMainWindow):
         self.label_time.setFont(font)
         self.horizontalLayout.addWidget(self.label_time, 0, Qt.AlignLeft)
 
-        self.pushButton_reset = QPushButton(self.frame_top)
-        self.pushButton_reset.setMinimumSize(QSize(40, 40))
-        self.pushButton_reset.setMaximumSize(QSize(40, 40))
+        self.pushButton_reset = QPushButton("Restart")
+        self.pushButton_reset.setMinimumSize(QSize(50, 20))
+        self.pushButton_reset.setMaximumSize(QSize(50, 20))
         self.horizontalLayout.addWidget(self.pushButton_reset, 0, Qt.AlignHCenter|Qt.AlignVCenter)
+        self.pushButton_reset.clicked.connect(functools.partial(self.restart_resize_command, "Restart"))
 
         self.label_mines_count = QLabel("000")
-
         font = QFont()
         font.setPointSize(12)
         self.label_mines_count.setFont(font)
@@ -78,14 +82,27 @@ class SaperUI(QMainWindow):
         self.horizontalLayout.addWidget(self.label_mines_count, 0, Qt.AlignRight)
         self.verticalLayout.addWidget(self.frame_top)
 
-    def actionSmile(self):
-        print ("Small")
+    def generate_field(self, width=15, height=10, mines_num=20):
+        # create field object
+        self.field = Field(width, height, mines_num)
+        self.field.print_cell()
+        for j in range(self.field.height):
+            for i in range(self.field.width):
+                cll = Cell(self.field.field[j][i])
+                self.cells_list.append(cll)
+                self.gridLayout_field.addWidget(cll, j, i, 1, 1)
 
-    def actionMiddle(self):
-        print("Middle")
+    def __del_cells(self):
+        for cell in self.cells_list:
+            cell.deleteLater()
+        self.cells_list=[]
 
-    def actionLarge(self):
-        print("Large")
+    def restart_resize_command(self, attr):
+        if attr == "Restart":
+            self.__del_cells()
+            self.generate_field()
+        else:
+            print(attr)
 
     def action_about_program(self):
         print("About program")

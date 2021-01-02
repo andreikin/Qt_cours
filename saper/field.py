@@ -36,10 +36,10 @@ class Field:
         for i in self.field:
             print(* i)
 
-
-
-
-
-g = Field(20, 10, 60)
-g.print_cell()
+if __name__ == '__main__':
+    g = Field(20, 10, 60)
+    g.print_cell()
+    print('__________________')
+    g = Field(20, 5, 30)
+    g.print_cell()
 

@@ -14,5 +14,11 @@
             500
         ]
     },
+    "IMAGES": {
+        "CELL": "images/cell.jpg",
+        "EMPTY_CELL": "images/empty_cell.jpg",
+        "FLAG": "images/flag.jpg",
+        "MINE": "images/mine.jpg"
+    },
     "MINES_PERCENTAGE": 20
 }
