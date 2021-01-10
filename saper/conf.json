@@ -6,12 +6,12 @@
             10
         ],
         "MEDIUM": [
-            100,
-            50
+            15,
+            15
         ],
         "LARGE": [
-            1000,
-            500
+            20,
+            20
         ]
     },
     "IMAGES": {
@@ -20,5 +20,7 @@
         "FLAG": "images/flag.jpg",
         "MINE": "images/mine.jpg"
     },
-    "MINES_PERCENTAGE": 20
+    "MINES_PERCENTAGE": 20,
+    "ABOUT_PROGRAM": "Minesweeper is a single-player puzzle video game. The objective of the game is to clear a rectangular board containing hidden \"mines\" or bombs without detonating any of them, with help from clues about the number of neighboring mines in each field. ... If a square containing a mine is revealed, the player loses the game.",
+    "HELP_TEXT":"The rule of the game is simple, the number on a block shows the number of mines adjacent to it and you have to flag all the mines. Some terms: Flag: Put a flag in a zone when you have confirmed that there is a mine. Question Mark: Put a question mark when you suspect that there is a mine."
 }
