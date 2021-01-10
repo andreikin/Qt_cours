@@ -33,13 +33,15 @@ class Field:
         self.field = [x[1:-1] for x in self.field[1:-1]]
 
     def print_cell(self):
+        print (*"_"*len(self.field[0]))
         for i in self.field:
             print(* i)
 
-if __name__ == '__main__':
-    g = Field(20, 10, 60)
-    g.print_cell()
-    print('__________________')
-    g = Field(20, 5, 30)
-    g.print_cell()
 
+# if __name__ == '__main__':
+#
+# #from field import Field, get_sells_around
+#     g = Field(10, 10, 20)
+#     g.print_cell()
+#
+#     get_sells_around(g.field, 5, 5)
