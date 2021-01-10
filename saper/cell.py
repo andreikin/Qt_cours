@@ -6,10 +6,9 @@ import json
 class Cell(QPushButton):
     def __init__(self, status, position):
         super().__init__()
-
+        # load settings
         with open('conf.json', 'r') as file:
             self.conf = json.load(file)
-
         self.cell_path = self.conf["IMAGES"]["CELL"]
         self.empty_cell_path = self.conf["IMAGES"]["EMPTY_CELL"]
         self.flag_path = self.conf["IMAGES"]["FLAG"]
