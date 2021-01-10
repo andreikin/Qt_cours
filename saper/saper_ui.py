@@ -8,22 +8,16 @@ import functools
 class SaperUI(QMainWindow):
     def __init__(self):
         super(SaperUI, self).__init__()
-        self.setWindowFlags(Qt.WindowStaysOnTopHint)
-        self.setMinimumWidth(300)
-
-        # widget
+        # Window
+        self.setWindowTitle("Minesweeper")
         self.centralwidget = QWidget(self)
         self.setCentralWidget(self.centralwidget)
         self.verticalLayout = QVBoxLayout(self.centralwidget)
         self.__menu_bar()
         self.__header()
-
-        self.cells_list = []
         self.gridLayout_field = QGridLayout()
         self.gridLayout_field.setSpacing(0)
         self.verticalLayout.addLayout(self.gridLayout_field)
-
-        self.generate_field()
 
     def __menu_bar(self):
         # menu bar
@@ -34,23 +28,23 @@ class SaperUI(QMainWindow):
         self.menuBar.addMenu(self.menu)
         # action
         self.act1 = QAction("Small", self)
-        self.act1.triggered.connect(functools.partial(self.restart_resize_command, "Small") )
+        self.act1.triggered.connect(functools.partial(self.restart_resize_command, "SMALL") )
         self.menu.addAction(self.act1)
         self.act2 = QAction("Middle", self)
-        self.act2.triggered.connect(functools.partial(self.restart_resize_command, "Middle") )
+        self.act2.triggered.connect(functools.partial(self.restart_resize_command, "MEDIUM") )
         self.menu.addAction(self.act2)
         self.act3 = QAction("Large", self)
-        self.act3.triggered.connect(functools.partial(self.restart_resize_command, "Large") )
+        self.act3.triggered.connect(functools.partial(self.restart_resize_command, "LARGE") )
         self.menu.addAction(self.act3)
         # menu "Help"
         self.menu_help = QMenu("Help")
         self.menuBar.addMenu(self.menu_help)
         # action
         self.act4 = QAction("About program", self)
-        self.act4.triggered.connect(self.action_about_program)
+        self.act4.triggered.connect(functools.partial(self.text_dialog, "ABOUT_PROGRAM"))
         self.menu_help.addAction(self.act4)
         self.act5 = QAction("Help", self)
-        self.act5.triggered.connect(self.action_help)
+        self.act5.triggered.connect(functools.partial(self.text_dialog, "HELP_TEXT") )
         self.menu_help.addAction(self.act5)
 
     def __header(self):
@@ -82,40 +76,4 @@ class SaperUI(QMainWindow):
         self.horizontalLayout.addWidget(self.label_mines_count, 0, Qt.AlignRight)
         self.verticalLayout.addWidget(self.frame_top)
 
-    def generate_field(self, width=15, height=10, mines_num=20):
-        # create field object
-        self.field = Field(width, height, mines_num)
-        self.field.print_cell()
-        for j in range(self.field.height):
-            for i in range(self.field.width):
-                cll = Cell(self.field.field[j][i])
-                self.cells_list.append(cll)
-                self.gridLayout_field.addWidget(cll, j, i, 1, 1)
 
-    def __del_cells(self):
-        for cell in self.cells_list:
-            cell.deleteLater()
-        self.cells_list=[]
-
-    def restart_resize_command(self, attr):
-        if attr == "Restart":
-            self.__del_cells()
-            self.generate_field()
-        else:
-            print(attr)
-
-    def action_about_program(self):
-        print("About program")
-
-    def action_help(self):
-        print("Help")
-
-
-
-
-
-if __name__ == '__main__':
-    app = QApplication([])
-    win = SaperUI()
-    win.show()
-    app.exec_()
