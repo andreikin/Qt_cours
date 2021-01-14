@@ -37,15 +37,20 @@ class SaperUI(QMainWindow):
         self.act3.triggered.connect(functools.partial(self.restart_resize_command, "LARGE") )
         self.menu.addAction(self.act3)
         # menu "Help"
-        self.menu_help = QMenu("Help")
+        self.menu_help = QMenu("Additional")
         self.menuBar.addMenu(self.menu_help)
         # action
         self.act4 = QAction("About program", self)
         self.act4.triggered.connect(functools.partial(self.text_dialog, "ABOUT_PROGRAM"))
         self.menu_help.addAction(self.act4)
-        self.act5 = QAction("Help", self)
-        self.act5.triggered.connect(functools.partial(self.text_dialog, "HELP_TEXT") )
-        self.menu_help.addAction(self.act5)
+        
+        self.act_record = QAction("Record list", self)
+        self.act_record.triggered.connect( self.win_dialog)
+        self.menu_help.addAction(self.act_record)
+        
+        self.act_help = QAction("Help", self)
+        self.act_help.triggered.connect(functools.partial(self.text_dialog, "HELP_TEXT") )
+        self.menu_help.addAction(self.act_help)
 
     def __header(self):
         self.frame_top = QFrame(self.centralwidget)
@@ -61,7 +66,6 @@ class SaperUI(QMainWindow):
         font.setPointSize(12)
         self.label_time.setFont(font)
         self.horizontalLayout.addWidget(self.label_time, 0, Qt.AlignLeft)
-
         self.pushButton_reset = QPushButton("Restart")
         self.pushButton_reset.setMinimumSize(QSize(50, 20))
         self.pushButton_reset.setMaximumSize(QSize(50, 20))

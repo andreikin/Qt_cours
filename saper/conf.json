@@ -14,6 +14,7 @@
             20
         ]
     },
+    "DATA_BASE": "saper.db",
     "IMAGES": {
         "CELL": "images/cell.jpg",
         "EMPTY_CELL": "images/empty_cell.jpg",
@@ -22,5 +23,6 @@
     },
     "MINES_PERCENTAGE": 20,
     "ABOUT_PROGRAM": "Minesweeper is a single-player puzzle video game. The objective of the game is to clear a rectangular board containing hidden \"mines\" or bombs without detonating any of them, with help from clues about the number of neighboring mines in each field. ... If a square containing a mine is revealed, the player loses the game.",
-    "HELP_TEXT":"The rule of the game is simple, the number on a block shows the number of mines adjacent to it and you have to flag all the mines. Some terms: Flag: Put a flag in a zone when you have confirmed that there is a mine. Question Mark: Put a question mark when you suspect that there is a mine."
+    "HELP_TEXT":"The rule of the game is simple, the number on a block shows the number of mines adjacent to it and you have to flag all the mines. Some terms: Flag: Put a flag in a zone when you have confirmed that there is a mine. Question Mark: Put a question mark when you suspect that there is a mine.",
+    "WIN_TEXT": "Congratulations you won!\nAdd the result to the high score table?\nType your name:"
 }

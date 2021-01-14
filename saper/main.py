@@ -5,6 +5,7 @@ from PyQt5.QtGui import *
 from PyQt5.QtWidgets import *
 from field import Field
 from cell import Cell
+import sqlite3 as sq
 
 class Game(SaperUI):
     def __init__(self, mode="SMALL"):
@@ -80,6 +81,7 @@ class Game(SaperUI):
                     self.pushButton_reset.setStyleSheet('QPushButton {background-color: green; color: white;}')
                 self.cells_list[j][i].frozen = True
         self.game_is_on = False
+
     def eventFilter(self, cell, event):
         if event.type() == QEvent.MouseButtonPress:
             # Left click
@@ -158,6 +160,22 @@ class Game(SaperUI):
         help_dialog.setText(text)
         help_dialog.setStandardButtons(QMessageBox.Cancel)
         help_dialog.exec_()
+
+    def win_dialog (self):
+        text, ok = QInputDialog.getText(self, 'Text Input Dialog', self.conf["WIN_TEXT"])
+        time = self.time.toString("mm:ss")
+        if ok:
+            print(str(text))
+
+            with sq.connect(self.conf["DATA_BASE"]) as con:
+                cur = con.cursor()
+                cur.execute("""CREATE TABLE IF NOT EXISTS records (
+                name Text,
+                result Text
+                )""")
+                cur.execute('INSERT INTO records VALUES ("'+text+'", "'+time+'")')
+
+
 
 if __name__ == '__main__':
     app = QApplication([])
