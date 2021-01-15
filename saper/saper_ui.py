@@ -28,13 +28,13 @@ class SaperUI(QMainWindow):
         self.menuBar.addMenu(self.menu)
         # action
         self.act1 = QAction("Small", self)
-        self.act1.triggered.connect(functools.partial(self.restart_resize_command, "SMALL") )
+        self.act1.triggered.connect(functools.partial(self.restart_resize_command, "SMALL"))
         self.menu.addAction(self.act1)
         self.act2 = QAction("Middle", self)
-        self.act2.triggered.connect(functools.partial(self.restart_resize_command, "MEDIUM") )
+        self.act2.triggered.connect(functools.partial(self.restart_resize_command, "MEDIUM"))
         self.menu.addAction(self.act2)
         self.act3 = QAction("Large", self)
-        self.act3.triggered.connect(functools.partial(self.restart_resize_command, "LARGE") )
+        self.act3.triggered.connect(functools.partial(self.restart_resize_command, "LARGE"))
         self.menu.addAction(self.act3)
         # menu "Help"
         self.menu_help = QMenu("Additional")
@@ -44,12 +44,12 @@ class SaperUI(QMainWindow):
         self.act4.triggered.connect(functools.partial(self.text_dialog, "ABOUT_PROGRAM"))
         self.menu_help.addAction(self.act4)
         
-        self.act_record = QAction("Record list", self)
-        self.act_record.triggered.connect( self.win_dialog)
+        self.act_record = QAction("Records", self)
+        self.act_record.triggered.connect(functools.partial(self.text_dialog, "WIN_LIST"))
         self.menu_help.addAction(self.act_record)
         
         self.act_help = QAction("Help", self)
-        self.act_help.triggered.connect(functools.partial(self.text_dialog, "HELP_TEXT") )
+        self.act_help.triggered.connect(functools.partial(self.text_dialog, "HELP_TEXT"))
         self.menu_help.addAction(self.act_help)
 
     def __header(self):
