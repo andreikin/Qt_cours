@@ -97,6 +97,7 @@ class Game(SaperUI):
 
             if self.__is_victory():
                 self.__stop_game()
+                self.__win_dialog()
         return QObject.event(cell, event)
 
     def __flags_caunter(self, cell):
@@ -176,7 +177,7 @@ class Game(SaperUI):
             lines.append(name+" "*(30-len(name))+ val+"\n")
         return "".join(lines)
 
-    def win_dialog (self):
+    def __win_dialog (self):
         text, ok = QInputDialog.getText(self, 'Text Input Dialog', self.conf["WIN_TEXT"])
         time = self.time.toString("mm:ss")
         if ok:
