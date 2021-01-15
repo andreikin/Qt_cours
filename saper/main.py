@@ -22,18 +22,19 @@ class Game(SaperUI):
         self.mines_num = int(self.width * self.height / 100 * self.conf["MINES_PERCENTAGE"])
         self.game_is_on = True  # if Folse - turns off time and mines counter
         self.cells_list = [["0" for i in range(self.width)] for j in range(self.height)]  # cell objects matrix
-
+        self.pushButton_reset.setStyleSheet('QPushButton {background-color: light gray;}')
         self.generate_field(self.width, self.height, self.mines_num)
         self.__resize_widow()
         self.__start_timer()
 
     def __start_timer(self):
+        self.label_time.setText("00:00")
         self.game_timer = QTimer()
         self.time = QTime(0, 0, 0)
         self.game_timer.setInterval(1000)
         self.game_timer.timeout.connect(self.__change_time)
         self.game_timer.start()
-        self.pushButton_reset.setStyleSheet('QPushButton {background-color: light gray;}')
+
 
     def __change_time(self):
         if self.game_is_on:
@@ -45,7 +46,7 @@ class Game(SaperUI):
     def generate_field(self, width=15, height=10, mines_num=20):
         # create field object
         self.field = Field(width, height, mines_num)
-        #self.field.print_cell()
+        self.field.print_cell()
         for j in range(self.field.height):
             for i in range(self.field.width):
                 cll = Cell(self.field.field[j][i], (j, i))
@@ -152,6 +153,11 @@ class Game(SaperUI):
         if text_type == "HELP_TEXT":
             title = "Game rules"
             text = self.conf["HELP_TEXT"]
+
+        elif text_type == "WIN_LIST":
+            title = "Records"
+            text = self.get_win_list()
+
         else:
             title = "About program"
             text = self.conf["ABOUT_PROGRAM"]
@@ -161,12 +167,19 @@ class Game(SaperUI):
         help_dialog.setStandardButtons(QMessageBox.Cancel)
         help_dialog.exec_()
 
+    def get_win_list(self):
+        with sq.connect(self.conf["DATA_BASE"]) as con:
+            cur = con.cursor()
+            data = cur.execute('SELECT name, result FROM records ORDER BY result LIMIT 10')
+        lines = []
+        for name, val in data.fetchall():
+            lines.append(name+" "*(30-len(name))+ val+"\n")
+        return "".join(lines)
+
     def win_dialog (self):
         text, ok = QInputDialog.getText(self, 'Text Input Dialog', self.conf["WIN_TEXT"])
         time = self.time.toString("mm:ss")
         if ok:
-            print(str(text))
-
             with sq.connect(self.conf["DATA_BASE"]) as con:
                 cur = con.cursor()
                 cur.execute("""CREATE TABLE IF NOT EXISTS records (
@@ -174,6 +187,7 @@ class Game(SaperUI):
                 result Text
                 )""")
                 cur.execute('INSERT INTO records VALUES ("'+text+'", "'+time+'")')
+
 
 
 
