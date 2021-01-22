@@ -98,7 +98,7 @@ class Game(SaperUI):
 
             if self.__is_victory():
                 self.__stop_game()
-                self.__win_dialog()
+                #self.__win_dialog()
         return QObject.event(cell, event)
 
     def __flags_caunter(self, cell):
@@ -156,9 +156,9 @@ class Game(SaperUI):
             title = "Game rules"
             text = self.conf["HELP_TEXT"]
 
-        elif text_type == "WIN_LIST":
-            title = "Records"
-            text = self.get_win_list()
+        # elif text_type == "WIN_LIST":
+        #     title = "Records"
+        #     text = self.get_win_list()
 
         else:
             title = "About program"
@@ -169,15 +169,6 @@ class Game(SaperUI):
         help_dialog.setStandardButtons(QMessageBox.Cancel)
         help_dialog.exec_()
 
-    # def get_win_list(self):
-    #     with sq.connect(self.conf["DATA_BASE"]) as con:
-    #         cur = con.cursor()
-    #         data = cur.execute('SELECT name, result FROM records ORDER BY result LIMIT 10')
-    #     lines = []
-    #     for name, val in data.fetchall():
-    #         lines.append(name+" "*(30-len(name))+ val+"\n")
-    #     return "".join(lines)
-    #
     # def win_dialog (self):
     #     text, ok = QInputDialog.getText(self, 'Text Input Dialog', self.conf["WIN_TEXT"])
     #     time = self.time.toString("mm:ss")
@@ -189,7 +180,7 @@ class Game(SaperUI):
     #             result Text
     #             )""")
     #             cur.execute('INSERT INTO records VALUES ("'+text+'", "'+time+'")')
-    #
+    # #
 
 
 
