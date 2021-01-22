@@ -80,8 +80,8 @@ class SaperUI(QMainWindow):
         self.verticalLayout.addWidget(self.frame_top)
 
     def start_records_dealog(self):
-        self.records_dealog = ResultHandler()
-        self.records_dealog.exec_()
+        ResultHandler().show_result()
+
 
 
 
