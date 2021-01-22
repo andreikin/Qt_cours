@@ -1,10 +1,11 @@
 import json
-from saper_ui import SaperUI
 from PyQt5.QtCore import *
 from PyQt5.QtGui import *
 from PyQt5.QtWidgets import *
+from saper_ui import SaperUI
 from field import Field
 from cell import Cell
+from result_handler import ResultHandler
 import sqlite3 as sq
 
 class Game(SaperUI):
@@ -168,27 +169,27 @@ class Game(SaperUI):
         help_dialog.setStandardButtons(QMessageBox.Cancel)
         help_dialog.exec_()
 
-    def get_win_list(self):
-        with sq.connect(self.conf["DATA_BASE"]) as con:
-            cur = con.cursor()
-            data = cur.execute('SELECT name, result FROM records ORDER BY result LIMIT 10')
-        lines = []
-        for name, val in data.fetchall():
-            lines.append(name+" "*(30-len(name))+ val+"\n")
-        return "".join(lines)
-
-    def __win_dialog (self):
-        text, ok = QInputDialog.getText(self, 'Text Input Dialog', self.conf["WIN_TEXT"])
-        time = self.time.toString("mm:ss")
-        if ok:
-            with sq.connect(self.conf["DATA_BASE"]) as con:
-                cur = con.cursor()
-                cur.execute("""CREATE TABLE IF NOT EXISTS records (
-                name Text,
-                result Text
-                )""")
-                cur.execute('INSERT INTO records VALUES ("'+text+'", "'+time+'")')
-
+    # def get_win_list(self):
+    #     with sq.connect(self.conf["DATA_BASE"]) as con:
+    #         cur = con.cursor()
+    #         data = cur.execute('SELECT name, result FROM records ORDER BY result LIMIT 10')
+    #     lines = []
+    #     for name, val in data.fetchall():
+    #         lines.append(name+" "*(30-len(name))+ val+"\n")
+    #     return "".join(lines)
+    #
+    # def win_dialog (self):
+    #     text, ok = QInputDialog.getText(self, 'Text Input Dialog', self.conf["WIN_TEXT"])
+    #     time = self.time.toString("mm:ss")
+    #     if ok:
+    #         with sq.connect(self.conf["DATA_BASE"]) as con:
+    #             cur = con.cursor()
+    #             cur.execute("""CREATE TABLE IF NOT EXISTS records (
+    #             name Text,
+    #             result Text
+    #             )""")
+    #             cur.execute('INSERT INTO records VALUES ("'+text+'", "'+time+'")')
+    #
 
 
 

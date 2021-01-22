@@ -1,9 +1,8 @@
 from PyQt5.QtCore import *
 from PyQt5.QtGui import *
 from PyQt5.QtWidgets import *
-from field import Field
-from cell import Cell
 import functools
+from result_handler import ResultHandler
 
 class SaperUI(QMainWindow):
     def __init__(self):
@@ -45,7 +44,7 @@ class SaperUI(QMainWindow):
         self.menu_help.addAction(self.act4)
         
         self.act_record = QAction("Records", self)
-        self.act_record.triggered.connect(functools.partial(self.text_dialog, "WIN_LIST"))
+        self.act_record.triggered.connect(self.start_records_dealog)
         self.menu_help.addAction(self.act_record)
         
         self.act_help = QAction("Help", self)
@@ -79,5 +78,12 @@ class SaperUI(QMainWindow):
         self.label_mines_count.setObjectName("label_mines_count")
         self.horizontalLayout.addWidget(self.label_mines_count, 0, Qt.AlignRight)
         self.verticalLayout.addWidget(self.frame_top)
+
+    def start_records_dealog(self):
+        self.records_dealog = ResultHandler()
+        self.records_dealog.exec_()
+
+
+
 
 
