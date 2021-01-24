@@ -15,8 +15,16 @@ class ResultHandler:
             data = cur.execute('SELECT name, result FROM records ORDER BY result LIMIT 10')
         return data.fetchall()
 
-    def add_result(self):
-        pass
+    def add_result(self, obj, time):
+        text, ok = QInputDialog.getText(obj, 'Text Input Dialog', self.conf["WIN_TEXT"])
+        if ok and text:
+            with sq.connect(self.conf["DATA_BASE"]) as con:
+                cur = con.cursor()
+                cur.execute("""CREATE TABLE IF NOT EXISTS records (
+                 name Text,
+                 result Text
+                 )""")
+                cur.execute('INSERT INTO records VALUES ("' + text + '", "' + time + '")')
 
     def show_result(self):
         records_data = self.get_win_list()
