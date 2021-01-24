@@ -98,7 +98,10 @@ class Game(SaperUI):
 
             if self.__is_victory():
                 self.__stop_game()
+                result = self.time.toString("mm:ss")
+                ResultHandler().add_result(self, result)
                 #self.__win_dialog()
+
         return QObject.event(cell, event)
 
     def __flags_caunter(self, cell):
@@ -169,18 +172,19 @@ class Game(SaperUI):
         help_dialog.setStandardButtons(QMessageBox.Cancel)
         help_dialog.exec_()
 
-    # def win_dialog (self):
-    #     text, ok = QInputDialog.getText(self, 'Text Input Dialog', self.conf["WIN_TEXT"])
-    #     time = self.time.toString("mm:ss")
-    #     if ok:
-    #         with sq.connect(self.conf["DATA_BASE"]) as con:
-    #             cur = con.cursor()
-    #             cur.execute("""CREATE TABLE IF NOT EXISTS records (
-    #             name Text,
-    #             result Text
-    #             )""")
-    #             cur.execute('INSERT INTO records VALUES ("'+text+'", "'+time+'")')
-    # #
+    #def win_dialog (self):
+        #print("win")
+        # text, ok = QInputDialog.getText(self, 'Text Input Dialog', self.conf["WIN_TEXT"])
+        # time = self.time.toString("mm:ss")
+        # if ok:
+        #     with sq.connect(self.conf["DATA_BASE"]) as con:
+        #         cur = con.cursor()
+        #         cur.execute("""CREATE TABLE IF NOT EXISTS records (
+        #         name Text,
+        #         result Text
+        #         )""")
+        #         cur.execute('INSERT INTO records VALUES ("'+text+'", "'+time+'")')
+
 
 
 
