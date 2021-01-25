@@ -29,6 +29,9 @@ class ResultHandler:
                  )""")
                 cur.execute('INSERT INTO records VALUES ("' + text + '", "' + time + '")')
 
+    def erase_records(self):
+        print("erase_records")
+
     def show_result(self):
         records_data = self.get_win_list()
         records_dealog = ResultDialog(records_data)
