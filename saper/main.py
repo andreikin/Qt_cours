@@ -99,9 +99,7 @@ class Game(SaperUI):
             if self.__is_victory():
                 self.__stop_game()
                 result = self.time.toString("mm:ss")
-                ResultHandler().add_result(self, result)
-                #self.__win_dialog()
-
+                ResultHandler().add_result(self, result, self.mode)
         return QObject.event(cell, event)
 
     def __flags_caunter(self, cell):
