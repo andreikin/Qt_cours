@@ -46,7 +46,11 @@ class SaperUI(QMainWindow):
         self.act_record = QAction("Records", self)
         self.act_record.triggered.connect(self.start_records_dealog)
         self.menu_help.addAction(self.act_record)
-        
+
+        self.act_erase_records = QAction("Erase records", self)
+        self.act_erase_records.triggered.connect(self.erase_records)
+        self.menu_help.addAction(self.act_erase_records)
+
         self.act_help = QAction("Help", self)
         self.act_help.triggered.connect(functools.partial(self.text_dialog, "HELP_TEXT"))
         self.menu_help.addAction(self.act_help)
@@ -83,7 +87,8 @@ class SaperUI(QMainWindow):
         ResultHandler().show_result()
 
 
-
+    def erase_records(self):
+        print("erase_records")
 
 
 
