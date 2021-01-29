@@ -9,9 +9,9 @@ from result_handler import ResultHandler
 import sqlite3 as sq
 
 class Game(SaperUI):
-    def __init__(self, mode="SMALL"):
+    def __init__(self):
         super(Game, self).__init__()
-        self.mode = mode
+
         # load configurations
         with open('conf.json', 'r') as file:
             self.conf = json.load(file)
@@ -99,7 +99,7 @@ class Game(SaperUI):
             if self.__is_victory():
                 self.__stop_game()
                 result = self.time.toString("mm:ss")
-                ResultHandler().add_result(self, result, self.mode)
+                self.res_handler.add_result(self, result, self.mode)
         return QObject.event(cell, event)
 
     def __flags_caunter(self, cell):
