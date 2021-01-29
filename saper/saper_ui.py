@@ -1,13 +1,14 @@
 from PyQt5.QtCore import *
 from PyQt5.QtGui import *
 from PyQt5.QtWidgets import *
-from field import Field
-from cell import Cell
 import functools
+from result_handler import ResultHandler
 
 class SaperUI(QMainWindow):
-    def __init__(self):
+    def __init__(self, mode="SMALL"):
         super(SaperUI, self).__init__()
+        self.mode = mode
+        self.res_handler = ResultHandler()
         # Window
         self.setWindowTitle("Minesweeper")
         self.centralwidget = QWidget(self)
@@ -45,9 +46,13 @@ class SaperUI(QMainWindow):
         self.menu_help.addAction(self.act4)
         
         self.act_record = QAction("Records", self)
-        self.act_record.triggered.connect(functools.partial(self.text_dialog, "WIN_LIST"))
+        self.act_record.triggered.connect(self.res_handler.show_result)
         self.menu_help.addAction(self.act_record)
-        
+
+        self.act_erase_records = QAction("Erase records", self)
+        self.act_erase_records.triggered.connect(self.erase_records)
+        self.menu_help.addAction(self.act_erase_records)
+
         self.act_help = QAction("Help", self)
         self.act_help.triggered.connect(functools.partial(self.text_dialog, "HELP_TEXT"))
         self.menu_help.addAction(self.act_help)
@@ -79,5 +84,13 @@ class SaperUI(QMainWindow):
         self.label_mines_count.setObjectName("label_mines_count")
         self.horizontalLayout.addWidget(self.label_mines_count, 0, Qt.AlignRight)
         self.verticalLayout.addWidget(self.frame_top)
+
+    # def start_records_dealog(self):
+    #     self.res_handler.show_result()
+
+
+    def erase_records(self):
+        ResultHandler().erase_records()
+
 
 
