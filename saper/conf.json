@@ -1,4 +1,4 @@
-{   "PRINT_FIELD": "on",
+{   "PRINT_FIELD": false,
     "CELL_SIZE": 20,
     "FIELD_SIZE": {
         "SMALL": [
