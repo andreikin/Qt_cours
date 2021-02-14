@@ -1,9 +1,9 @@
-{
+{   "PRINT_FIELD": "on",
     "CELL_SIZE": 20,
     "FIELD_SIZE": {
         "SMALL": [
             10,
-            1
+            10
         ],
         "MEDIUM": [
             15,
