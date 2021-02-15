@@ -5,8 +5,6 @@ from PyQt5.QtWidgets import *
 from saper_ui import SaperUI
 from field import Field
 from cell import Cell
-from result_handler import ResultHandler
-import sqlite3 as sq
 
 class Game(SaperUI):
     def __init__(self):
@@ -16,6 +14,7 @@ class Game(SaperUI):
         with open('conf.json', 'r') as file:
             self.conf = json.load(file)
         self.init_game()
+        self.setWindowIcon(QIcon(self.conf["IMAGES"]["MINE"]))
 
     def init_game(self):
         self.width = self.conf["FIELD_SIZE"][self.mode][0]
@@ -47,7 +46,8 @@ class Game(SaperUI):
     def generate_field(self, width=15, height=10, mines_num=20):
         # create field object
         self.field = Field(width, height, mines_num)
-        self.field.print_cell()
+        if self.conf["PRINT_FIELD"]:
+            self.field.print_cell()
         for j in range(self.field.height):
             for i in range(self.field.width):
                 cll = Cell(self.field.field[j][i], (j, i))
@@ -150,17 +150,14 @@ class Game(SaperUI):
             self.init_game()
         else:
             self.mode = mode
+            self.res_handler.mode = mode
             self.init_game()
+            print(self.mode)
 
     def text_dialog (self, text_type):
         if text_type == "HELP_TEXT":
             title = "Game rules"
             text = self.conf["HELP_TEXT"]
-
-        # elif text_type == "WIN_LIST":
-        #     title = "Records"
-        #     text = self.get_win_list()
-
         else:
             title = "About program"
             text = self.conf["ABOUT_PROGRAM"]
@@ -169,19 +166,6 @@ class Game(SaperUI):
         help_dialog.setText(text)
         help_dialog.setStandardButtons(QMessageBox.Cancel)
         help_dialog.exec_()
-
-    #def win_dialog (self):
-        #print("win")
-        # text, ok = QInputDialog.getText(self, 'Text Input Dialog', self.conf["WIN_TEXT"])
-        # time = self.time.toString("mm:ss")
-        # if ok:
-        #     with sq.connect(self.conf["DATA_BASE"]) as con:
-        #         cur = con.cursor()
-        #         cur.execute("""CREATE TABLE IF NOT EXISTS records (
-        #         name Text,
-        #         result Text
-        #         )""")
-        #         cur.execute('INSERT INTO records VALUES ("'+text+'", "'+time+'")')
 
 
 

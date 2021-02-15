@@ -5,44 +5,39 @@ from PyQt5.QtWidgets import *
 import sqlite3 as sq
 
 class ResultHandler:
-    def __init__(self):
+    def __init__(self, mode="SMALL"):
         with open('conf.json', 'r') as file:
             self.conf = json.load(file)
+        self.mode = mode
 
-    def get_win_list(self):
+    def get_win_list(self, mode):
         with sq.connect(self.conf["DATA_BASE"]) as con:
             cur = con.cursor()
-            data = cur.execute('SELECT name, result FROM records ORDER BY result LIMIT 10')
+            cur.execute('CREATE TABLE IF NOT EXISTS records' + mode + ' ( name Text, result Text )')
+            data = cur.execute('SELECT name, result FROM records'+mode+' ORDER BY result LIMIT 10')
         return data.fetchall()
 
-    def add_result(self, obj, time, field_type):
-
-        print (field_type)
+    def add_result(self, obj, time, mode):
         text, ok = QInputDialog.getText(obj, 'Text Input Dialog', self.conf["WIN_TEXT"])
         if ok and text:
             with sq.connect(self.conf["DATA_BASE"]) as con:
                 cur = con.cursor()
-
-                cur.execute("""CREATE TABLE IF NOT EXISTS records (
-                 name Text,
-                 result Text
-                 )""")
-                cur.execute('INSERT INTO records VALUES ("' + text + '", "' + time + '")')
+                cur.execute('CREATE TABLE IF NOT EXISTS records'+mode+' ( name Text, result Text )')
+                cur.execute('INSERT INTO records'+mode+' VALUES ("' + text + '", "' + time + '")')
 
     def erase_records(self):
-        print("erase_records")
+        with sq.connect(self.conf["DATA_BASE"]) as con:
+            cur = con.cursor()
+            cur.execute('DROP TABLE   records' + self.mode)
 
     def show_result(self):
-        records_data = self.get_win_list()
+        records_data = self.get_win_list(self.mode)
         records_dealog = ResultDialog(records_data)
         records_dealog.exec_()
-
-
 
 class ResultDialog(QDialog):
     def __init__(self, records_data):
         super(ResultDialog, self).__init__()
-
         self.layout = QVBoxLayout(self)
         self.layout.setContentsMargins(20, 20, 20, 20)
         self.setWindowTitle("Records:")
@@ -50,7 +45,6 @@ class ResultDialog(QDialog):
         self.layout.setSpacing(5)
         self.grid_layout.setColumnMinimumWidth(0, 100)
         self.layout.addLayout(self.grid_layout)
-
         for line in range(len(records_data)):
             name, val = records_data[line]
             name_label = QLabel(name)

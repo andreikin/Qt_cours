@@ -46,11 +46,12 @@ class SaperUI(QMainWindow):
         self.menu_help.addAction(self.act4)
         
         self.act_record = QAction("Records", self)
+
         self.act_record.triggered.connect(self.res_handler.show_result)
         self.menu_help.addAction(self.act_record)
 
         self.act_erase_records = QAction("Erase records", self)
-        self.act_erase_records.triggered.connect(self.erase_records)
+        self.act_erase_records.triggered.connect(self.res_handler.erase_records)
         self.menu_help.addAction(self.act_erase_records)
 
         self.act_help = QAction("Help", self)
@@ -85,12 +86,9 @@ class SaperUI(QMainWindow):
         self.horizontalLayout.addWidget(self.label_mines_count, 0, Qt.AlignRight)
         self.verticalLayout.addWidget(self.frame_top)
 
-    # def start_records_dealog(self):
-    #     self.res_handler.show_result()
 
 
-    def erase_records(self):
-        ResultHandler().erase_records()
+
 
 
 
