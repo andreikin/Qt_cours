@@ -168,10 +168,9 @@ class Game(SaperUI):
         help_dialog.exec_()
 
 
-
-
 if __name__ == '__main__':
     app = QApplication([])
     win = Game()
     win.show()
+    app.setStyle(QStyleFactory.create("windows"))
     app.exec_()
