@@ -58,7 +58,9 @@ class UiToPythonConverter(QMainWindow):
 
     # generate pyhon command
     def convert_ui_to_py(self):
-        pyuic_path = 'pyuic5.exe'
+        util = 'pyuic5.exe'
+        dir_path = os.path.dirname(__file__)
+        pyuic_path = os.path.join(dir_path, util)
         input_path = self.ui.disigner_lineEdit.text()
         out_path = self.ui.qt_lineEdit.text()
         os.system(pyuic_path + " " + input_path + " -o " + out_path)
