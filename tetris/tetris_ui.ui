@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>232</width>
+    <height>422</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Tetris</string>
+  </property>
+  <widget class="QWidget" name="centralwidget"/>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>232</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menu">
+    <property name="title">
+     <string>Game level</string>
+    </property>
+    <addaction name="actiongame_level"/>
+    <addaction name="actionmiddle"/>
+    <addaction name="actionHard"/>
+   </widget>
+   <widget class="QMenu" name="menuHelp">
+    <property name="title">
+     <string>Help</string>
+    </property>
+    <addaction name="actionAbout_program"/>
+    <addaction name="actionabout_program"/>
+   </widget>
+   <addaction name="menu"/>
+   <addaction name="menuHelp"/>
+  </widget>
+  <action name="actiongame_level">
+   <property name="text">
+    <string>Easy</string>
+   </property>
+  </action>
+  <action name="actionmiddle">
+   <property name="text">
+    <string>Middle</string>
+   </property>
+  </action>
+  <action name="actionHard">
+   <property name="text">
+    <string>Hard</string>
+   </property>
+  </action>
+  <action name="actionAbout_program">
+   <property name="text">
+    <string>Help</string>
+   </property>
+  </action>
+  <action name="actionabout_program">
+   <property name="text">
+    <string>About program</string>
+   </property>
+  </action>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
