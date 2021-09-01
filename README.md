@@ -1,2 +1,2 @@
 # Small_projects
-Educational pyQt projects are placed here.
+Small scripts for the Studio Melnitsa and educational projects for myrself.
